@@ -1,15 +1,19 @@
 CC = gcc
-PR = 
+PR = -std=c++17
+SRC = $(wildcard src/*.cpp)\
+	  $(wildcard src/objects/*.cpp)
+OBJ = $(SRC:%.cpp=%.o)
 LDFLAGS = -lSDL2_image -lSDL2 -lstdc++
-src = $(wildcard src/*.cpp)\
-	  $(wildcard src/objects/*.cpp)\
-	  
-obj = $(src:.cpp=.o)
+INC = -Isrc/
+
 
 all: main
 
-main: $(obj)
-	$(CC) $(PR) -o $@ $^ $(LDFLAGS)
+main: $(OBJ)
+	$(CC) $(PR) -o $@ $^ $(LDFLAGS) 
+
+%.o: %.cpp
+	$(CC) $(PR) -c $< -o $@ $(INC)
 
 clean:
-	rm -f $(obj) main
+	rm -f $(OBJ) main
