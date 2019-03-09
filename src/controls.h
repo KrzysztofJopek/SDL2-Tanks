@@ -3,7 +3,6 @@
 
 #include "global.h"
 #include "app.h"
-#include <SDL2/SDL.h>
 
 class App;
 

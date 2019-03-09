@@ -2,7 +2,6 @@
 #define _RENDERER_H_
 
 #include "global.h"
-#include <SDL2/SDL.h>
 
 class Renderer{
     SDL_Window* window = nullptr;

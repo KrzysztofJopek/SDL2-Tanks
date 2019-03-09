@@ -1,6 +1,5 @@
 #ifndef _APP_H_
 #define _APP_H_
-#include <SDL2/SDL.h>
 
 #include "global.h"
 #include "renderer.h"

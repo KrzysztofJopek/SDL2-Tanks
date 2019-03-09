@@ -1,5 +1,7 @@
 #include "renderer.h"
 
+SDL_Renderer* g_renderer;
+
 Renderer::Renderer()
 {
     window = SDL_CreateWindow(
@@ -18,5 +20,6 @@ Renderer::Renderer()
             SDL_RENDERER_ACCELERATED);
     if(!renderer)
         ERROR("Can't create renderer\n");
+    g_renderer = renderer;
 }
 
