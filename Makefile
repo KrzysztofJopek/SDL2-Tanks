@@ -1,11 +1,10 @@
 CC = gcc
-PR = -std=c++17
+PR = -std=c++17 -g
 SRC = $(wildcard src/*.cpp)\
 	  $(wildcard src/objects/*.cpp)
 OBJ = $(SRC:%.cpp=%.o)
 LDFLAGS = -lSDL2_image -lSDL2 -lstdc++
-INC = -Isrc/
-
+INC = -Isrc/ -Isrc/objects/
 
 all: main
 

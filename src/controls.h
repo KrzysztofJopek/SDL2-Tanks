@@ -3,6 +3,7 @@
 
 #include "global.h"
 #include "app.h"
+#include "tank.h"
 
 class App;
 
@@ -12,6 +13,7 @@ class Controls{
 
    void handleEvent(SDL_Event& e);
 public:
+   Tank* tank;
    Controls(App* app);
    void handleEvents();
     

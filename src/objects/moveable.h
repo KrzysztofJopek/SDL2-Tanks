@@ -17,8 +17,13 @@ public:
     Cords<float> getVec();
 };
 
-class Moveable: Object{
+class Moveable: public Object{
+protected:
+
+public:
     Velocity velocity;
+    Moveable(float vx, float vy, float sp): velocity(vx, vy, sp){}
+    void update(unsigned int delta);
 
 };
 

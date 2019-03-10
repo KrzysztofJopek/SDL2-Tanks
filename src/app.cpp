@@ -1,5 +1,7 @@
 #include "app.h"
 #include <SDL2/SDL_image.h>
+#include <unistd.h>
+#include "tank.h"
 
 
 App::App()
@@ -14,6 +16,7 @@ App::App()
         ERROR("Can't init IMG\n");
 
     controls = new Controls(this);
+    simulation = new Simulation(renderer);
 }
 
 App::~App()
@@ -26,12 +29,17 @@ void App::run()
 {
     unsigned int tick1, tick2, delta;
     tick1 = SDL_GetTicks();
+    Tank* tank = new Tank(0,0);
+    simulation->add(tank);
+    controls->tank = tank;
     while(running){
         tick2 = SDL_GetTicks();
         delta = tick2 - tick1;
         tick1 = tick2;
 
         controls->handleEvents();
+        simulation->update(delta);
+        usleep(20000);
     }
 }
 
