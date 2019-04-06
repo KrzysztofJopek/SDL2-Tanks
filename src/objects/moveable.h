@@ -3,7 +3,7 @@
 
 #include "object.h"
 
-enum Direction {TOP=1, DOWN, RIGHT, LEFT};
+enum Direction {NON=0, TOP, DOWN, RIGHT, LEFT};
 
 class Velocity{
     Cords<float> vec;
@@ -16,6 +16,7 @@ public:
     void changeSpeed(float speed);
     void move(Direction dir);
     void unmove(Direction dir);
+    void stop(Direction dir = NON);
     Direction getLastDirection();
     Cords<float> getVec();
 };

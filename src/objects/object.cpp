@@ -18,10 +18,34 @@ void Object::move(int x, int y)
     rectangle.y += y;
 }
 
-Cords<int> Object::getPosition()
+SDL_Rect Object::getRect()
 {
-    return {rectangle.x, rectangle.y};
+    return rectangle;
 }
+
+int Object::getDamage()
+{
+    return damage;
+}
+
+int Object::getHP()
+{
+    return HP;
+}
+
+Object* Object::getParent()
+{
+    return parent;
+}
+
+bool Object::isInFrame()
+{
+    SDL_Rect rect = this->getRect();
+    if(rect.x < 0 || rect.y < 0 || rect.x+rect.w > WIDTH || rect.y + rect.h > HEIGHT)
+        return false;
+    return true;
+}
+
 
 void Object::draw()
 {

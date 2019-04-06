@@ -13,6 +13,8 @@ public:
     Simulation(Renderer* renderer);
     void update(unsigned int delta);
     void add(Object* object);
+    void remove(Object* object);
+    std::vector<Object*> findCollision(Object* object);
 };
 
 #endif

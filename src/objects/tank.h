@@ -15,6 +15,7 @@ class Tank: public Moveable{
 public:
     Tank(int x, int y);
     void shoot();
+    void collide(int damage);
 
 };
 
@@ -24,7 +25,8 @@ class Bullet: public Moveable{
     static const int h = 25;
     inline static const float speed = 0.5;
 public:
-    Bullet(int x, int y, Direction dir);
+    Bullet(int x, int y, Direction dir, Object* Parent);
+    void collide(int damage);
 
 };
 

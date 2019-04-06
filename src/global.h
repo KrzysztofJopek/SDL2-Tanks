@@ -6,8 +6,10 @@
 #include <SDL2/SDL.h>
 
 #define ERROR(x) do{fprintf(stderr, x); exit(1);}while(0);
-
+#define WIDTH 640
+#define HEIGHT 480
 class Simulation;
+
 extern SDL_Renderer* g_renderer;
 extern Simulation* g_simulation;
 

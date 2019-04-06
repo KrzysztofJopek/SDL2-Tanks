@@ -16,13 +16,21 @@ class Object{
 protected:
     Texture texture;
     SDL_Rect rectangle;
+    int HP=1;
+    int damage=0;
+    Object* parent = NULL;
 
 public:
     virtual void update(unsigned int delta) = 0;
+    virtual void collide(int damage) = 0;
     void setSize(int w, int h);
     void setPosition(int x, int y);
     void move(int x, int y);
-    Cords<int> getPosition();
+    int getDamage();
+    int getHP();
+    bool isInFrame();
+    Object* getParent();
+    SDL_Rect getRect();
     void draw();
 };
 
