@@ -1,13 +1,14 @@
 #include "controls.h"
 #include "moveable.h"
 
-Controls::Controls(App* app){
+Controls::Controls(App* app)
+{
     this->app = app;
 }
 
 void Controls::handleEvents()
 {
-    while(SDL_PollEvent(&event) != 0){
+    while(SDL_PollEvent(&event)){
         handleEvent(event);
     }
 }
