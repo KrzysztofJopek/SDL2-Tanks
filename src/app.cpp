@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include "tank.h"
 #include "simulation.h"
+#include "parser.h"
 
 
 Simulation* g_simulation;
@@ -35,6 +36,7 @@ void App::run()
     Tank* tank = new Tank(0,0);
     g_simulation->add(tank);
     controls->tank = tank;
+    Parser::parse("res/lvl1.txt");
     while(running){
         tick2 = SDL_GetTicks();
         delta = tick2 - tick1;
