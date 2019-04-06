@@ -2,8 +2,10 @@
 #include <SDL2/SDL_image.h>
 #include <unistd.h>
 #include "tank.h"
+#include "simulation.h"
 
 
+Simulation* g_simulation;
 App::App()
 {
     if(SDL_Init(SDL_INIT_VIDEO) == -1)
@@ -16,13 +18,14 @@ App::App()
         ERROR("Can't init IMG\n");
 
     controls = new Controls(this);
-    simulation = new Simulation(renderer);
+    g_simulation = new Simulation(renderer);
 }
 
 App::~App()
 {
     delete renderer;
     delete controls;
+    delete g_simulation;
 }
 
 void App::run()
@@ -30,7 +33,7 @@ void App::run()
     unsigned int tick1, tick2, delta;
     tick1 = SDL_GetTicks();
     Tank* tank = new Tank(0,0);
-    simulation->add(tank);
+    g_simulation->add(tank);
     controls->tank = tank;
     while(running){
         tick2 = SDL_GetTicks();
@@ -38,7 +41,7 @@ void App::run()
         tick1 = tick2;
 
         controls->handleEvents();
-        simulation->update(delta);
+        g_simulation->update(delta);
         usleep(20000);
     }
 }

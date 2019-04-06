@@ -22,6 +22,7 @@ public:
     void setSize(int w, int h);
     void setPosition(int x, int y);
     void move(int x, int y);
+    Cords<int> getPosition();
     void draw();
 };
 

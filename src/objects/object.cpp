@@ -18,6 +18,11 @@ void Object::move(int x, int y)
     rectangle.y += y;
 }
 
+Cords<int> Object::getPosition()
+{
+    return {rectangle.x, rectangle.y};
+}
+
 void Object::draw()
 {
     SDL_RenderCopy(g_renderer, texture.getTexture(), NULL, &rectangle);

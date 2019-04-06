@@ -4,14 +4,12 @@
 #include "global.h"
 #include "renderer.h"
 #include "controls.h"
-#include "simulation.h"
 
 class Controls;
 
 class App{
     Renderer* renderer;
     Controls* controls;
-    Simulation* simulation;
 
     bool running = true;
 public:

@@ -32,6 +32,9 @@ void Controls::handleEvent(SDL_Event& e)
             case SDLK_RIGHT:
                 tank->velocity.move(RIGHT);
                 break;
+            case SDLK_SPACE:
+                tank->shoot();
+                break;
         }
     }
     else if(e.type == SDL_KEYUP && event.key.repeat == 0){

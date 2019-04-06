@@ -5,6 +5,12 @@ Velocity::Velocity(float x, float y, float speed):vec(x,y)
     this->speed = speed;
 }
 
+Velocity::Velocity(float speed, Direction direction): vec(0,0)
+{
+    this->speed = speed;
+    move(direction);
+}
+
 void Velocity::changeSpeed(float speed)
 {
     this->speed = speed;
@@ -26,6 +32,7 @@ void Velocity::move(Direction dir)
             vec.x-=1;
             break;
     }
+    direction = dir;
 }
 
 void Velocity::unmove(Direction dir)
@@ -49,6 +56,11 @@ void Velocity::unmove(Direction dir)
 Cords<float> Velocity::getVec()
 {
     return Cords<float>(vec.x*speed, vec.y*speed);
+}
+
+Direction Velocity::getLastDirection()
+{
+    return direction;
 }
 
 void Moveable::update(unsigned int delta)
