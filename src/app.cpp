@@ -4,6 +4,7 @@
 #include "tank.h"
 #include "simulation.h"
 #include "parser.h"
+#include "menu.h"
 
 
 Simulation* g_simulation;
@@ -20,6 +21,8 @@ App::App()
 
     controls = new Controls(this);
     g_simulation = new Simulation(renderer);
+
+    menu = new Menu(this);
 }
 
 App::~App()
@@ -27,17 +30,66 @@ App::~App()
     delete renderer;
     delete controls;
     delete g_simulation;
+    delete menu;
 }
 
 void App::run()
 {
+    while(running){
+        switch(state){
+            case MENU:
+                handleMenu();
+                break;
+            case MAKER:
+                handleMaker();
+                break;
+            case GAME:
+                handleGame();
+                break;
+        }
+    }
+}
+
+void App::quit()
+{
+    running = false;
+}
+
+void App::enterMenu()
+{
+    state = MENU;
+}
+
+void App::enterGame()
+{
+    state = GAME;
+}
+
+void App::enterMaker()
+{
+    state = MAKER;
+}
+
+void App::handleMenu()
+{
+    while(state == MENU && running == true){
+        menu->draw();
+        menu->handleInput();
+    }
+}
+
+void App::handleGame()
+{
     unsigned int tick1, tick2, delta;
     tick1 = SDL_GetTicks();
-    Tank* tank = new Tank(0,0);
-    g_simulation->add(tank);
-    controls->tank = tank;
-    Parser::parse("res/lvl1.txt");
-    while(running){
+    if(!gameInProgress){
+        Tank* tank = new Tank(0,0);
+        g_simulation->add(tank);
+        controls->tank = tank;
+        Parser::parse("res/lvl1.txt");
+        gameInProgress = true;
+    }
+    while(running && state == GAME){
         tick2 = SDL_GetTicks();
         delta = tick2 - tick1;
         tick1 = tick2;
@@ -48,7 +100,7 @@ void App::run()
     }
 }
 
-void App::quit()
+void App::handleMaker()
 {
-    running = false;
 }
+
