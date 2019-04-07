@@ -16,9 +16,16 @@ void Tank::collide(int damage)
 
 void Tank::shoot()
 {
+    //Check for shoot delay`
+    unsigned int tick = SDL_GetTicks();
+    if(tick-lastshootTick < shootDelay)
+        return;
+    lastshootTick = tick;
+
     SDL_Rect tankPos = getRect();
     g_simulation->add(
-            new Bullet(tankPos.x+tankPos.w/2, tankPos.y+tankPos.h/2,
+            new Bullet(tankPos.x + tankPos.w/2 - Bullet::w/2,
+                tankPos.y + tankPos.h/2 - Bullet::h/2,
                 velocity.getLastDirection(), this)
             );
 }

@@ -1,2 +1,8 @@
 tank:60:60
 tank:300:300
+terrain:200:200
+terrain:225:200
+terrain:225:225
+terrain:200:225
+terrain:250:225
+terrain:250:200
