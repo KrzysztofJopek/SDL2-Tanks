@@ -38,21 +38,18 @@ void Menu::deleteButtons()
 void Menu::handleInput()
 {
     SDL_Event e;
-    while(SDL_PollEvent(&e)){
-        if(e.type == SDL_QUIT){
+    SDL_WaitEvent(&e);
+    if(e.type == SDL_QUIT){
+        app->quit();
+    }
+    else if(e.type == SDL_MOUSEBUTTONDOWN){
+        if(close->isClicked(e.button.x, e.button.y)){
             app->quit();
         }
-        else if(e.type == SDL_MOUSEBUTTONDOWN){
-            if(close->isClicked(e.button.x, e.button.y)){
-                app->quit();
-            }
-            if(play->isClicked(e.button.x, e.button.y)){
-                app->enterGame();
-            }
-            if(maker->isClicked(e.button.x, e.button.y)){
-            }
-
+        if(play->isClicked(e.button.x, e.button.y)){
+            app->enterGame();
+        }
+        if(maker->isClicked(e.button.x, e.button.y)){
         }
     }
-
 }

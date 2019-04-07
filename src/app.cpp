@@ -75,7 +75,6 @@ void App::handleMenu()
     while(state == MENU && running == true){
         menu->draw();
         menu->handleInput();
-        usleep(50000);
     }
 }
 
