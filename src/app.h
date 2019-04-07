@@ -4,15 +4,18 @@
 #include "global.h"
 #include "renderer.h"
 #include "controls.h"
-#include "menu.h"
 
 class Controls;
+class Menu;
+class Maker;
+
 enum State {MENU=0, GAME, MAKER, CLOSE};
 
 class App{
     Renderer* renderer;
     Controls* controls;
     Menu* menu;
+    Maker* maker;
     State state = MENU;
 
     bool running = true;

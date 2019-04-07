@@ -5,6 +5,7 @@
 #include "simulation.h"
 #include "parser.h"
 #include "menu.h"
+#include "maker.h"
 
 
 Simulation* g_simulation;
@@ -20,9 +21,10 @@ App::App()
         ERROR("Can't init IMG\n");
 
     controls = new Controls(this);
-    g_simulation = new Simulation(renderer);
+    g_simulation = new Simulation();
 
     menu = new Menu(this);
+    maker = new Maker(this);
 }
 
 App::~App()
@@ -31,6 +33,7 @@ App::~App()
     delete controls;
     delete g_simulation;
     delete menu;
+    delete maker;
 }
 
 void App::run()
@@ -102,5 +105,10 @@ void App::handleGame()
 
 void App::handleMaker()
 {
+    while(state == MAKER && running == true){
+        maker->draw();
+        maker->handleInput();
+        usleep(20000);
+    }
 }
 

@@ -26,6 +26,7 @@ public:
     void setSize(int w, int h);
     void setPosition(int x, int y);
     void move(int x, int y);
+    Texture* getTexture();
     int getDamage();
     int getHP();
     bool isInFrame();
