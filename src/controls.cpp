@@ -39,6 +39,9 @@ void Controls::handleEvent(SDL_Event& e)
             case SDLK_SPACE:
                 tank->shoot();
                 break;
+            case SDLK_ESCAPE:
+                app->enterMenu();
+                break;
         }
     }
     else if(e.type == SDL_KEYUP && event.key.repeat == 0){

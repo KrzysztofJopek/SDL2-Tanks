@@ -13,8 +13,8 @@ class Tank: public Moveable{
     unsigned int shootDelay = 1000;
 
 public:
-    static const int w = 50;
-    static const int h = 50;
+    static const int w = 40;
+    static const int h = 40;
 
     Tank(int x, int y);
     void shoot();
