@@ -7,6 +7,7 @@
 #include "simulation.h"
 #include "tank.h"
 #include "terrain.h"
+#include "block.h"
 
 
 void Parser::parse(std::string path)
@@ -61,6 +62,7 @@ void Parser::makeTank(int x, int y)
 
 void Parser::makeBlock(int x, int y)
 {
+    g_simulation->add(new Block(x, y));
 }
 
 void Parser::makeTerrain(int x, int y)
