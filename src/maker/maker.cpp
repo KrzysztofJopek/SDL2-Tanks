@@ -4,6 +4,7 @@
 #include "tank.h"
 #include "terrain.h"
 #include "block.h"
+#include "parser.h"
 
 Maker::Maker(App* app)
 {
@@ -23,6 +24,8 @@ Maker::Maker(App* app)
     addItem(new Tank(0, 0), TANK);
 
     curr = nullptr;
+
+    ReadMakerParser(this).parse("./res/lvl1.txt");
 }
 
 Maker::~Maker()
@@ -173,7 +176,7 @@ void Maker::draw()
         obj->render();
     }
 
-    if(curr && curr->type != NONE){
+    if(curr){
         curr->render();
     }
 
