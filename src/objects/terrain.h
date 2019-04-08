@@ -8,8 +8,8 @@ class Terrain: public Object{
     inline static const std::string path = "./res/terrain.png";
 
 public:
-    static const int w = 25;
-    static const int h = 25;
+    static const int w = 20;
+    static const int h = 20;
 
     Terrain(int x, int y);
     void collide(int damage);
