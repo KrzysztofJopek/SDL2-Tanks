@@ -1,13 +1,27 @@
 #include "simulation.h"
 #include <algorithm>
 
-Simulation::Simulation(Renderer* renderer)
+Simulation::Simulation()
 {
-    this->renderer = renderer;
+    background.y = 0;
+    background.x = 0;
+    background.h = HEIGHT;
+    background.w = HEIGHT;
+
+    pane.y = 0;
+    pane.x = HEIGHT;
+    pane.h = HEIGHT;
+    pane.w = (WIDTH-HEIGHT);
 }
+
 void Simulation::update(unsigned int delta)
 {
+    SDL_SetRenderDrawColor(g_renderer, 0x00, 0x00, 0x00, 0xff);
     SDL_RenderClear(g_renderer);
+    SDL_SetRenderDrawColor(g_renderer, 0x00, 0x10, 0x00, 0xff);
+    SDL_RenderFillRect(g_renderer, &background);
+    SDL_SetRenderDrawColor(g_renderer, 0x40, 0x20, 0x00, 0xff);
+    SDL_RenderFillRect(g_renderer, &pane);
     for(Object* obj : objects){
         obj->update(delta);
         obj->draw();

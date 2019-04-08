@@ -5,12 +5,16 @@
 #include "object.h"
 #include "global.h"
 
+class Texture;
+
 class Simulation{
-    Renderer* renderer; 
     std::vector<Object*> objects;
+    SDL_Rect background;
+    SDL_Rect pane;
+
 
 public:
-    Simulation(Renderer* renderer);
+    Simulation();
     void update(unsigned int delta);
     void add(Object* object);
     void remove(Object* object);

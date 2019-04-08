@@ -23,6 +23,11 @@ SDL_Rect Object::getRect()
     return rectangle;
 }
 
+Texture* Object::getTexture()
+{
+    return &texture;
+}
+
 int Object::getDamage()
 {
     return damage;
@@ -41,7 +46,8 @@ Object* Object::getParent()
 bool Object::isInFrame()
 {
     SDL_Rect rect = this->getRect();
-    if(rect.x < 0 || rect.y < 0 || rect.x+rect.w > WIDTH || rect.y + rect.h > HEIGHT)
+    //We want square area
+    if(rect.x < 0 || rect.y < 0 || rect.x+rect.w > HEIGHT|| rect.y + rect.h > HEIGHT)
         return false;
     return true;
 }

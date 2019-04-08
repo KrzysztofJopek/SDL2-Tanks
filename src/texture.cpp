@@ -23,3 +23,4 @@ void Texture::loadTexture(std::string path)
 
     SDL_FreeSurface(surface);
 }
+

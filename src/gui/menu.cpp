@@ -50,6 +50,7 @@ void Menu::handleInput()
             app->enterGame();
         }
         if(maker->isClicked(e.button.x, e.button.y)){
+            app->enterMaker();
         }
     }
 }
