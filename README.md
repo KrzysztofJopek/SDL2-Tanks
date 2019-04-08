@@ -7,7 +7,7 @@
 - Enemy AI.
 
 ## Installing & running
-Game is tested on GNU/Linux enviroment, please install SDL2 and Boost library beforehand.
+Game is tested in GNU/Linux enviroment. Please install SDL2 and Boost library beforehand.
 
 To compile simply use:
 ```
