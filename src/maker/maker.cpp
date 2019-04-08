@@ -63,8 +63,11 @@ void Maker::handleClick(SDL_Event& ev)
 
 void Maker::handleMove()
 {
-    if(curr)
+    if(curr){
         SDL_GetMouseState(&(curr->rect.x), &(curr->rect.y));
+        curr->rect.x -= curr->rect.x%20;
+        curr->rect.y -= curr->rect.y%20;
+    }
 }
 
 bool Maker::isInRect(int x, int y, SDL_Rect rect)
@@ -99,13 +102,13 @@ void Maker::clickObject(int x, int y)
         if(!collideOnMap(curr->rect)){
             switch(curr->type){
                 case TANK:
-                    addToMap(new Tank(0,0), TANK, x, y);
+                    addToMap(new Tank(0,0), TANK, curr->rect.x, curr->rect.y);
                     break;
                 case BLOCK:
-                    addToMap(new Block(0,0), BLOCK, x, y);
+                    addToMap(new Block(0,0), BLOCK, curr->rect.x, curr->rect.y);
                     break;
                 case TERRAIN:
-                    addToMap(new Terrain(0,0), TERRAIN, x, y);
+                    addToMap(new Terrain(0,0), TERRAIN, curr->rect.x, curr->rect.y);
                     break;
             }
             
