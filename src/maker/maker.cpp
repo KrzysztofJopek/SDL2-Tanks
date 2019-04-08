@@ -99,7 +99,7 @@ bool Maker::collideOnMap(SDL_Rect rect)
 void Maker::clickObject(int x, int y)
 {
     if(isInRect(x, y, background)){
-        if(!collideOnMap(curr->rect)){
+        if(curr && !collideOnMap(curr->rect)){
             switch(curr->type){
                 case TANK:
                     addToMap(new Tank(0,0), TANK, curr->rect.x, curr->rect.y);
