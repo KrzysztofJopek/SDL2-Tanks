@@ -41,18 +41,20 @@ Maker::~Maker()
 void Maker::handleInput()
 {
     SDL_Event ev;
-    SDL_WaitEvent(&ev);
-    if(ev.type == SDL_MOUSEMOTION)
-        handleMove(ev);
-    else if(ev.type == SDL_MOUSEBUTTONDOWN)
-        handleClick(ev);
-    else if(ev.type == SDL_KEYDOWN){
-        if(ev.key.keysym.sym == SDLK_ESCAPE)
-            app->enterMenu();
+    while(SDL_PollEvent(&ev)){
+            if(ev.type == SDL_MOUSEBUTTONDOWN)
+                handleClick(ev);
+            else if(ev.type == SDL_KEYDOWN){
+                if(ev.key.keysym.sym == SDLK_ESCAPE)
+                    app->enterMenu();
+            }
+            else if(ev.type == SDL_QUIT){
+                app->quit();
+            }
     }
-    else if(ev.type == SDL_QUIT){
-        app->quit();
-    }
+    if(curr)
+        SDL_GetMouseState(&(curr->rect.x), &(curr->rect.y));
+
 
 }
 
@@ -64,10 +66,6 @@ void Maker::handleClick(SDL_Event& ev)
 
 void Maker::handleMove(SDL_Event& ev)
 {
-    if(curr){
-        curr->rect.x = ev.button.x;
-        curr->rect.y = ev.button.y;
-    }
 }
 
 bool Maker::isInRect(int x, int y, SDL_Rect rect)
@@ -139,7 +137,6 @@ void Maker::draw()
     }
 
     if(curr && curr->type != NONE){
-        printf("%d, %d, %d, %d\n", curr->rect.x, curr->rect.y, curr->rect.w, curr->rect.h);
         curr->render();
     }
 
