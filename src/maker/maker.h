@@ -28,15 +28,17 @@ private:
 
     ObjectHolder* curr;
 
-    void handleMove(SDL_Event& ev);
+    void handleMove();
     void handleClick(SDL_Event& ev);
     bool isInRect(int x, int y, SDL_Rect rect);
+    bool collideOnMap(SDL_Rect rect);
     void clickObject(int x, int y);
     ObjectHolder* findMap(int x, int y);
     ObjectHolder* findItem(int x, int y);
     void setObject(ObjectHolder* obj);
 
     void addItem(Object* object, ObjectType type);
+    void addToMap(Object* object, ObjectType type, int x, int y);
     
 
 public:

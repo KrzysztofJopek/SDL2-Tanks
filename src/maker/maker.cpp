@@ -52,10 +52,7 @@ void Maker::handleInput()
                 app->quit();
             }
     }
-    if(curr)
-        SDL_GetMouseState(&(curr->rect.x), &(curr->rect.y));
-
-
+    handleMove();
 }
 
 void Maker::handleClick(SDL_Event& ev)
@@ -64,8 +61,10 @@ void Maker::handleClick(SDL_Event& ev)
         clickObject(ev.button.x, ev.button.y);
 }
 
-void Maker::handleMove(SDL_Event& ev)
+void Maker::handleMove()
 {
+    if(curr)
+        SDL_GetMouseState(&(curr->rect.x), &(curr->rect.y));
 }
 
 bool Maker::isInRect(int x, int y, SDL_Rect rect)
@@ -75,12 +74,42 @@ bool Maker::isInRect(int x, int y, SDL_Rect rect)
     return true;
 }
 
+bool Maker::collideOnMap(SDL_Rect rect)
+{
+    //check if whole object fits in game area
+    if(rect.x < 0 || rect.y < 0 || rect.x+rect.w > HEIGHT || rect.y+rect.h > HEIGHT)
+        return true;
+
+    //check for collision on map
+    for(auto obj: map){
+        if(rect.x >= obj->rect.x+obj->rect.w ||
+                rect.x+rect.w <= obj->rect.x ||
+                rect.y >= obj->rect.y+obj->rect.h ||
+                rect.y+rect.h <= obj->rect.y){
+            continue;
+        }
+        return true;
+    }
+    return false;
+}
+
 void Maker::clickObject(int x, int y)
 {
     if(isInRect(x, y, background)){
-        ObjectHolder* obj = findMap(x, y);
-        if(obj)
-            printf("FOUND MAP\n");
+        if(!collideOnMap(curr->rect)){
+            switch(curr->type){
+                case TANK:
+                    addToMap(new Tank(0,0), TANK, x, y);
+                    break;
+                case BLOCK:
+                    addToMap(new Block(0,0), BLOCK, x, y);
+                    break;
+                case TERRAIN:
+                    addToMap(new Terrain(0,0), TERRAIN, x, y);
+                    break;
+            }
+            
+        }
     }
     else if(isInRect(x, y, pane)){
         ObjectHolder* obj = findItem(x, y);
@@ -118,6 +147,11 @@ void Maker::addItem(Object* object, ObjectType type)
     rect.y = posY;
 
     items.push_back(new ObjectHolder(object, type, rect));
+}
+
+void Maker::addToMap(Object* object, ObjectType type, int x, int y)
+{
+    map.push_back(new ObjectHolder(object, type, {x,y,0,0}));
 }
 
 void Maker::draw()
