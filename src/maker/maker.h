@@ -46,6 +46,7 @@ public:
     void draw();
     void handleInput();
     void addToMap(Object* object, ObjectType type, int x, int y);
+    std::vector<ObjectHolder*> getMap();
 };
 
 

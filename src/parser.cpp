@@ -3,6 +3,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include <boost/algorithm/string.hpp>
+#include <boost/format.hpp>
 #include "global.h"
 #include "simulation.h"
 #include "tank.h"
@@ -138,4 +139,46 @@ void ReadMakerParser::useBlock(int x, int y)
 void ReadMakerParser::useTerrain(int x, int y)
 {
     maker->addToMap(new Terrain(0,0), TERRAIN, x, y);
+}
+
+//
+//
+//
+
+void WriteMakerParser::parse(std::string path)
+{
+    file.open(path);
+    if(!file.is_open())
+        throw std::runtime_error("Can't open file\n");
+
+    std::string line;
+    int x, y;
+    for(auto obj: maker->getMap()){
+        x = obj->rect.x;
+        y = obj->rect.y;
+        try{
+            getFunction(obj->type, x, y);
+        }
+        catch(std::runtime_error& e){
+            throw;
+        }
+
+    }
+    file.close();
+}
+
+
+void WriteMakerParser::useTank(int x, int y)
+{
+    file << boost::format("tank:%d:%d\n") % x % y;
+}
+
+void WriteMakerParser::useBlock(int x, int y)
+{
+    file << boost::format("block:%d:%d\n") % x % y;
+}
+
+void WriteMakerParser::useTerrain(int x, int y)
+{
+    file << boost::format("terrain:%d:%d\n") % x % y;
 }

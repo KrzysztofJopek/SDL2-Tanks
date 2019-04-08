@@ -26,6 +26,7 @@ Maker::Maker(App* app)
     curr = nullptr;
 
     ReadMakerParser(this).parse("./res/lvl1.txt");
+    WriteMakerParser(this).parse("./res/lvl2.txt");
 }
 
 Maker::~Maker()
@@ -141,6 +142,12 @@ void Maker::clickObject(int x, int y)
         }
     }
 }
+
+std::vector<ObjectHolder*> Maker::getMap()
+{
+    return map;
+}
+
 void Maker::addItem(Object* object, ObjectType type)
 {
     int size = items.size();

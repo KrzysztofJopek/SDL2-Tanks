@@ -3,6 +3,8 @@
 #include <string>
 #include <functional>
 #include <vector>
+#include <iostream>
+#include <fstream>
 class Maker;
 
 enum ObjectType {TANK=1, TERRAIN, BLOCK};
@@ -42,6 +44,20 @@ class ReadMakerParser: public Parser{
 
     public:
         ReadMakerParser(Maker* maker): maker(maker){}
+        void parse(std::string path);
+        
+};
+
+class WriteMakerParser: public Parser{
+    private:
+        std::ofstream file;
+        Maker* maker;
+        void useTank(int x, int y);
+        void useBlock(int x, int y);
+        void useTerrain(int x, int y);
+
+    public:
+        WriteMakerParser(Maker* maker): maker(maker){}
         void parse(std::string path);
         
 };
