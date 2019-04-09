@@ -4,6 +4,7 @@
 #include "global.h"
 #include "renderer.h"
 #include "controls.h"
+#include <string>
 
 class Controls;
 class Menu;
