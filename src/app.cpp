@@ -1,11 +1,13 @@
 #include "app.h"
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
 #include <unistd.h>
 #include "tank.h"
 #include "simulation.h"
 #include "parser.h"
 #include "menu.h"
 #include "maker.h"
+#include "choose.h"
 
 
 Simulation* g_simulation;
@@ -19,6 +21,10 @@ App::App()
     int imgFlags = IMG_INIT_PNG;
     if(!(IMG_Init(imgFlags) & imgFlags))
         ERROR("Can't init IMG\n");
+    if(TTF_Init() < 0)
+        ERROR("Can't init TTF\n");
+
+    gameLevel = Choose("./levels/").choose();
 
     controls = new Controls(this);
     g_simulation = new Simulation();
@@ -38,6 +44,9 @@ App::~App()
 
 void App::run()
 {
+    if(gameLevel=="")
+        quit();
+
     while(running){
         switch(state){
             case MENU:
@@ -89,7 +98,7 @@ void App::handleGame()
         Tank* tank = new Tank(0,0);
         g_simulation->add(tank);
         controls->tank = tank;
-        ReadGameParser().parse("./res/lvl1.txt");
+        ReadGameParser().parse(gameLevel);
         gameInProgress = true;
     }
     while(running && state == GAME){
@@ -110,5 +119,10 @@ void App::handleMaker()
         maker->handleInput();
         usleep(20000);
     }
+}
+
+std::string App::getGameLevel()
+{
+    return gameLevel;
 }
 

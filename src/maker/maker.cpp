@@ -25,8 +25,7 @@ Maker::Maker(App* app)
 
     curr = nullptr;
 
-    ReadMakerParser(this).parse("./res/lvl1.txt");
-    WriteMakerParser(this).parse("./res/lvl2.txt");
+    ReadMakerParser(this).parse(app->getGameLevel());
 }
 
 Maker::~Maker()
@@ -51,6 +50,10 @@ void Maker::handleInput()
             else if(ev.type == SDL_KEYDOWN){
                 if(ev.key.keysym.sym == SDLK_ESCAPE)
                     app->enterMenu();
+                if(ev.key.keysym.sym == SDLK_RETURN){
+                    save();
+                    app->enterMenu();
+                }
             }
             else if(ev.type == SDL_QUIT){
                 app->quit();
@@ -188,6 +191,11 @@ void Maker::draw()
     }
 
     SDL_RenderPresent(g_renderer);
+}
+
+void Maker::save()
+{
+    WriteMakerParser(this).parse(app->getGameLevel());
 }
 
 ObjectHolder* Maker::findMap(int x, int y)

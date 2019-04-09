@@ -17,6 +17,7 @@ class App{
     Menu* menu;
     Maker* maker;
     State state = MENU;
+    std::string gameLevel;
 
     bool running = true;
     bool gameInProgress = false;
@@ -33,6 +34,8 @@ public:
     void handleMenu();
     void handleMaker();
     void handleGame();
+
+    std::string getGameLevel();
 };
 
 #endif
