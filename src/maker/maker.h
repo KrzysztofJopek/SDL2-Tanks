@@ -38,6 +38,7 @@ private:
     void setObject(ObjectHolder* obj);
 
     void addItem(Object* object, ObjectType type);
+    void save();
     
 
 public:

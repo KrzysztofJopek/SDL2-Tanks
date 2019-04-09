@@ -1,8 +1,10 @@
 #include "choose.h"
 #include <SDL2/SDL_ttf.h>
+#include <fstream>
 
 Choose::Choose(std::string path)
 {
+    this->path = path;
     for(const auto & entry: std::filesystem::directory_iterator(path))
         files.push_back(entry);
     if(files.empty())
@@ -14,15 +16,18 @@ Choose::Choose(std::string path)
 void Choose::next()
 {
    
-    if(empty)
+    if(empty && enteringName)
         return;
-    if(++curr == files.end())
+    if(++curr == files.end()){
+        enteringName = true;
         curr--;
+    }
    
 }
 
 void Choose::prev()
 {
+    enteringName=false;
     if(!empty && curr != files.begin())
         curr--;
 }
@@ -31,6 +36,8 @@ std::string Choose::getName()
 {
     if(empty)
         return "";
+    if(enteringName)
+        return path+owninput;
     return curr->path();
 }
 
@@ -49,10 +56,21 @@ std::string Choose::choose()
                     next();
                     break;
                 case SDLK_RETURN:
+                    if(enteringName){
+                        std::ofstream output(path+owninput);
+                        output.close();
+                    }
                     return getName();
                 case SDLK_ESCAPE:
-                    return "";
+
+                case SDLK_BACKSPACE:
+                    if(owninput.length() > 0)
+                        owninput.pop_back();
+                    break;
             }
+        }
+        else if(ev.type == SDL_TEXTINPUT){
+            owninput+= ev.text.text;
         }
         render();
     }

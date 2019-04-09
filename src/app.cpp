@@ -24,6 +24,7 @@ App::App()
     if(TTF_Init() < 0)
         ERROR("Can't init TTF\n");
 
+    gameLevel = Choose("./levels/").choose();
 
     controls = new Controls(this);
     g_simulation = new Simulation();
@@ -43,6 +44,9 @@ App::~App()
 
 void App::run()
 {
+    if(gameLevel=="")
+        quit();
+
     while(running){
         switch(state){
             case MENU:
@@ -90,17 +94,11 @@ void App::handleGame()
 {
     unsigned int tick1, tick2, delta;
     tick1 = SDL_GetTicks();
-    std::string levelpath;
     if(!gameInProgress){
-        levelpath = Choose("./levels/").choose();
-        if(levelpath == ""){
-            enterMenu();
-            return;
-        }
         Tank* tank = new Tank(0,0);
         g_simulation->add(tank);
         controls->tank = tank;
-        ReadGameParser().parse(levelpath);
+        ReadGameParser().parse(gameLevel);
         gameInProgress = true;
     }
     while(running && state == GAME){
@@ -121,5 +119,10 @@ void App::handleMaker()
         maker->handleInput();
         usleep(20000);
     }
+}
+
+std::string App::getGameLevel()
+{
+    return gameLevel;
 }
 
