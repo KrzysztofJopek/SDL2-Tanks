@@ -7,9 +7,11 @@ Choose::Choose(std::string path)
     this->path = path;
     for(const auto & entry: std::filesystem::directory_iterator(path))
         files.push_back(entry);
-    if(files.empty())
-        empty = 1;
-    empty = 0;
+    if(files.empty()){
+        empty = true;
+        enteringName = true;
+    }
+    empty = false;
     curr = files.begin();
 }
 
