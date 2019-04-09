@@ -25,8 +25,8 @@ Maker::Maker(App* app)
 
     curr = nullptr;
 
-    ReadMakerParser(this).parse("./res/lvl1.txt");
-    WriteMakerParser(this).parse("./res/lvl2.txt");
+ //   ReadMakerParser(this).parse("./res/lvl1.txt");
+  //  WriteMakerParser(this).parse("./res/lvl2.txt");
 }
 
 Maker::~Maker()
