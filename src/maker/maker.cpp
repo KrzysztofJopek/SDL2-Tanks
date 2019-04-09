@@ -4,6 +4,7 @@
 #include "tank.h"
 #include "terrain.h"
 #include "block.h"
+#include "parser.h"
 
 Maker::Maker(App* app)
 {
@@ -23,6 +24,9 @@ Maker::Maker(App* app)
     addItem(new Tank(0, 0), TANK);
 
     curr = nullptr;
+
+    ReadMakerParser(this).parse("./res/lvl1.txt");
+    WriteMakerParser(this).parse("./res/lvl2.txt");
 }
 
 Maker::~Maker()
@@ -138,6 +142,12 @@ void Maker::clickObject(int x, int y)
         }
     }
 }
+
+std::vector<ObjectHolder*> Maker::getMap()
+{
+    return map;
+}
+
 void Maker::addItem(Object* object, ObjectType type)
 {
     int size = items.size();
@@ -173,7 +183,7 @@ void Maker::draw()
         obj->render();
     }
 
-    if(curr && curr->type != NONE){
+    if(curr){
         curr->render();
     }
 

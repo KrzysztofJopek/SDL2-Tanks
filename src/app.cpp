@@ -89,7 +89,7 @@ void App::handleGame()
         Tank* tank = new Tank(0,0);
         g_simulation->add(tank);
         controls->tank = tank;
-        Parser::parse("res/lvl1.txt");
+        ReadGameParser().parse("./res/lvl1.txt");
         gameInProgress = true;
     }
     while(running && state == GAME){

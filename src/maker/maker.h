@@ -2,13 +2,13 @@
 #define _MAKER_H_
 #include "global.h"
 #include <vector>
+#include "parser.h"
 class Object;
 class App;
 
-enum ObjectType {NONE=0, TANK, TERRAIN, BLOCK};
 
 struct ObjectHolder{
-    ObjectType type = NONE;
+    ObjectType type;
     Object* object;
     SDL_Rect rect;
 
@@ -38,7 +38,6 @@ private:
     void setObject(ObjectHolder* obj);
 
     void addItem(Object* object, ObjectType type);
-    void addToMap(Object* object, ObjectType type, int x, int y);
     
 
 public:
@@ -46,7 +45,8 @@ public:
     ~Maker();
     void draw();
     void handleInput();
-
+    void addToMap(Object* object, ObjectType type, int x, int y);
+    std::vector<ObjectHolder*> getMap();
 };
 
 
