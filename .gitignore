@@ -35,3 +35,5 @@ main
 # Editor
 *.swp
 .vimrc
+
+levels/

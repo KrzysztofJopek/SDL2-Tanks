@@ -11,7 +11,10 @@ Choose::Choose(std::string path)
         empty = true;
         enteringName = true;
     }
-    empty = false;
+    else{
+        empty = false;
+        enteringName = false;
+    }
     curr = files.begin();
 }
 
@@ -29,17 +32,18 @@ void Choose::next()
 
 void Choose::prev()
 {
-    enteringName=false;
+    if(!empty)
+        enteringName=false;
     if(!empty && curr != files.begin())
         curr--;
 }
 
 std::string Choose::getName()
 {
-    if(empty)
-        return "";
     if(enteringName)
         return path+owninput;
+    if(empty)
+        return "";
     return curr->path();
 }
 
@@ -82,26 +86,34 @@ void Choose::render()
 {
     SDL_SetRenderDrawColor(g_renderer, 0x00, 0x00, 0x00, 0xff);
     SDL_RenderClear(g_renderer);
-
     SDL_Color White = {255, 255, 255};
-    printf("%s\n", SDL_GetError());
     TTF_Font* Sans = TTF_OpenFont("./res/DejaVuSans.ttf", 12);
-    printf("%s\n", SDL_GetError());
-    SDL_Surface* surfaceMessage = TTF_RenderText_Solid(Sans, getName().c_str(), White);
-    printf("%s\n", SDL_GetError());
+
+    SDL_Rect Message_rect;
+    Message_rect.x = 200;
+    Message_rect.w = WIDTH-Message_rect.x*2;
+    Message_rect.h = 10*15;
+    Message_rect.y = (HEIGHT-Message_rect.h)/2;
+
+    std::string name;
+    name = "In game use arrows and space\nPress ESC to go back\n";
+    name += "You can create new level in maker\n";
+    name += "Make sure to press enter in order to save map\n\n";
+    name += "Choose level or go to last position and enter new level name\n";
+    if(!enteringName)
+        name += "Choose level name:\n";
+    else
+        name += "Create new level:\n";
+    name += getName();
+    SDL_Surface* surfaceMessage = TTF_RenderText_Blended_Wrapped(Sans, name.c_str(),\
+            White, Message_rect.w);
 
     SDL_Texture* Message = SDL_CreateTextureFromSurface(g_renderer, surfaceMessage);
 
-    SDL_Rect Message_rect;
-    Message_rect.x = 100;
-    Message_rect.y = 0;
-    Message_rect.w = WIDTH-200;
-    Message_rect.h = 30;
 
 
     SDL_RenderCopy(g_renderer, Message, NULL, &Message_rect);
     SDL_RenderPresent(g_renderer);
-    printf("%s\n", getName().c_str()); 
     SDL_FreeSurface(surfaceMessage);
     SDL_DestroyTexture(Message);
 }
