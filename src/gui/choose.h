@@ -3,6 +3,7 @@
 
 #include "global.h"
 #include <filesystem>
+#include <vector>
 #include <string>
 
 class Choose{

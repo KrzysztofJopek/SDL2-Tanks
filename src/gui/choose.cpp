@@ -5,6 +5,11 @@
 Choose::Choose(std::string path)
 {
     this->path = path;
+    try{
+        std::filesystem::create_directories(path);
+    } catch(std::filesystem::filesystem_error err){
+        //ignored
+    }
     for(const auto & entry: std::filesystem::directory_iterator(path))
         files.push_back(entry);
     if(files.empty()){
